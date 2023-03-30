@@ -3,7 +3,8 @@ package com.masai.dto;
 public class Customer {
 	
 	private int customer_id;
-	private String name;
+	private String first_name;
+	private String last_name;
 	private String mobile;
 	private String address;
 	private String username;
@@ -14,11 +15,12 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customer_id, String name, String mobile, String address, String username, String password,
-			boolean is_deleted) {
+	public Customer(int customer_id, String first_name, String last_name, String mobile, String address,
+			String username, String password, boolean is_deleted) {
 		super();
 		this.customer_id = customer_id;
-		this.name = name;
+		this.first_name = first_name;
+		this.last_name = last_name;
 		this.mobile = mobile;
 		this.address = address;
 		this.username = username;
@@ -34,12 +36,20 @@ public class Customer {
 		this.customer_id = customer_id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
 	public String getMobile() {
@@ -84,9 +94,12 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [customer_id=" + customer_id + ", name=" + name + ", mobile=" + mobile + ", address=" + address
-				+ ", username=" + username + ", password=" + password + ", is_deleted=" + is_deleted + "]";
+		return "customer_id=" + customer_id + ", first_name=" + first_name + ", last_name=" + last_name
+				+ ", mobile=" + mobile + ", address=" + address + ", username=" + username + ", password=" + password
+				+ ", is_deleted=" + is_deleted ;
 	}
+
+	
 	
 	
 	

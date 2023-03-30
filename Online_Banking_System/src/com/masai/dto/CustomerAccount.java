@@ -3,7 +3,8 @@ package com.masai.dto;
 public class CustomerAccount {
 	
 	private int customer_id;
-	private String name;
+	private String first_name;
+	private String last_name;
 	private String mobile;
 	private String address;
 	private int account_number;
@@ -15,11 +16,12 @@ public class CustomerAccount {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerAccount(int customer_id, String name, String mobile, String address, int account_number,
-			String account_type, int balance, String status) {
+	public CustomerAccount(int customer_id, String first_name, String last_name, String mobile, String address,
+			int account_number, String account_type, int balance, String status) {
 		super();
 		this.customer_id = customer_id;
-		this.name = name;
+		this.first_name = first_name;
+		this.last_name = last_name;
 		this.mobile = mobile;
 		this.address = address;
 		this.account_number = account_number;
@@ -36,12 +38,20 @@ public class CustomerAccount {
 		this.customer_id = customer_id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
 	public String getMobile() {
@@ -94,10 +104,12 @@ public class CustomerAccount {
 
 	@Override
 	public String toString() {
-		return "customer_id=" + customer_id + ", name=" + name + ", mobile=" + mobile + ", address="
-				+ address + ", account_number=" + account_number + ", account_type=" + account_type + ", balance="
-				+ balance + ", status=" + status;
+		return "customer_id=" + customer_id + ", first_name=" + first_name + ", last_name=" + last_name
+				+ ", mobile=" + mobile + ", address=" + address + ", account_number=" + account_number
+				+ ", account_type=" + account_type + ", balance=" + balance + ", status=" + status ;
 	}
+
+	
 	
 	
 	

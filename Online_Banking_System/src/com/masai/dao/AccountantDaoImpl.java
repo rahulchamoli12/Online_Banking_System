@@ -31,11 +31,12 @@ public class AccountantDaoImpl implements AccountantDao{
 			while(rs.next()) {
 				Customer cus = new Customer();
 				cus.setCustomer_id(rs.getInt(1));
-				cus.setName(rs.getString(2));
-				cus.setMobile(rs.getString(3));
-				cus.setAddress(rs.getString(4));
-				cus.setUsername(rs.getString(5));
-				cus.setPassword(rs.getString(6));
+				cus.setFirst_name(rs.getString(2));
+				cus.setLast_name(rs.getString(3));
+				cus.setMobile(rs.getString(4));
+				cus.setAddress(rs.getString(5));
+				cus.setUsername(rs.getString(6));
+				cus.setPassword(rs.getString(7));
 				cus.setIs_deleted(false);
 				
 				customers.add(cus);
@@ -59,20 +60,21 @@ public class AccountantDaoImpl implements AccountantDao{
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("SELECT c.customer_id,c.name,c.mobile,c.address,a.account_number,a.account_type,a.balance,a.status from customer c INNER JOIN account a ON c.customer_id = a.customer_id");
+			PreparedStatement ps = con.prepareStatement("SELECT c.customer_id,c.first_name,c.last_name,c.mobile,c.address,a.account_number,a.account_type,a.balance,a.status from customer c INNER JOIN account a ON c.customer_id = a.customer_id");
 						
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
 				caccount = new CustomerAccount();
 				caccount.setCustomer_id(rs.getInt(1));
-				caccount.setName(rs.getString(2));
-				caccount.setMobile(rs.getString(3));
-				caccount.setAddress(rs.getString(4));
-				caccount.setAccount_number(rs.getInt(5));
-				caccount.setAccount_type(rs.getString(6));
-				caccount.setBalance(rs.getInt(7));
-				caccount.setStatus(rs.getString(8));	
+				caccount.setFirst_name(rs.getString(2));
+				caccount.setLast_name(rs.getString(3));
+				caccount.setMobile(rs.getString(4));
+				caccount.setAddress(rs.getString(5));
+				caccount.setAccount_number(rs.getInt(6));
+				caccount.setAccount_type(rs.getString(7));
+				caccount.setBalance(rs.getInt(8));
+				caccount.setStatus(rs.getString(9));	
 			}
 			
 			else
@@ -98,13 +100,12 @@ public class AccountantDaoImpl implements AccountantDao{
 			
 			while(rs.next()) {
 				Account account = new Account();
-				account.setAccount_id(rs.getInt(1));
-				account.setAccount_number(rs.getInt(2));
-				account.setAccount_type(rs.getString(3));
-				account.setBalance(rs.getInt(4));
-				account.setCustomer_id(rs.getInt(5));
-//				account.setPin(rs.getInt(6));
-				account.setStatus(rs.getString(7));
+				account.setAccount_number(1);
+				account.setAccount_type(rs.getString(2));
+				account.setBalance(rs.getInt(3));
+				account.setCustomer_id(rs.getInt(4));
+				account.setStatus(rs.getString(5));
+				account.setIs_close(false);
 				account.setIs_deleted(false);
 				
 				accounts.add(account);
@@ -136,13 +137,12 @@ public class AccountantDaoImpl implements AccountantDao{
 			
 			if(rs.next()) {
 				account = new Account();
-				account.setAccount_id(rs.getInt(1));
-				account.setAccount_number(rs.getInt(2));
-				account.setAccount_type(rs.getString(3));
-				account.setBalance(rs.getInt(4));
-				account.setCustomer_id(rs.getInt(5));
-//				account.setPin(rs.getInt(6));
-				account.setStatus(rs.getString(7));
+				account.setAccount_number(1);
+				account.setAccount_type(rs.getString(2));
+				account.setBalance(rs.getInt(3));
+				account.setCustomer_id(rs.getInt(4));
+				account.setStatus(rs.getString(5));
+				account.setIs_close(false);
 				account.setIs_deleted(false);
 			}
 			
@@ -157,7 +157,33 @@ public class AccountantDaoImpl implements AccountantDao{
 	}
 
 	
-	
+	@Override
+	public String addAccount(Account account) throws AccountantException {
+		
+		String message="Not Added!";
+		
+		try(Connection conn= DBUtil.provideConnection()) {
+		 
+		 PreparedStatement ps=conn.prepareStatement("insert into account(account_type,balance,customer_id) values(?,?,?)");
+		 ps.setString(1, account.getAccount_type());
+		 ps.setInt(2, account.getBalance());
+		 ps.setInt(3, account.getCustomer_id());
+		 
+	    
+ 
+		int x=ps.executeUpdate();
+		 
+		 if(x > 0) {
+			 System.out.println("Account added sucessfully..!");
+		 }else
+			 System.out.println("Inserted data is not correct");
+		 
+		}catch(SQLException e) {
+			throw new AccountantException(e.getMessage());
+		}
+		
+		return message;
+	}
 	
 	
 	

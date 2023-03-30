@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class CustomerUI {
 	
+	public static String cu_name;
 		
 	static void customerMenu(Scanner sc) {
-		
-		System.out.println("Welcome ");
+			
+		System.out.println("Welcome " + cu_name);
 		int choice = 0;
 		
 		do {
@@ -20,6 +21,7 @@ public class CustomerUI {
 			System.out.println("7. Transfer money to another account");
 			System.out.println("8. close the account");
 			System.out.println("9. Delete account");
+			System.out.println("10. Check Balance");
 			System.out.println("0. Logout");
 			System.out.println("Enter the choice : ");
 			
@@ -42,12 +44,35 @@ public class CustomerUI {
 					System.out.println("Enter Valid Option !");
 					break;
 				}
-				break;
+			break;
+				
+				
 			case 2 :
 				CustomerUseCases.UpdateCustomerDetails(sc);
 				break;
 			case 3 :
 				CustomerUseCases.UpdatePassword(sc);
+				break;
+			case 4 :
+				CustomerUseCases.DepositMoney(sc);
+				break;
+			case 5 :
+				CustomerUseCases.WithdrawMoney(sc);
+				break;
+			case 6 :
+				CustomerUseCases.TransactionByDateRange(sc);
+				break;
+			case 7 :
+				CustomerUseCases.TransferToAnotherAccount(sc);
+				break;
+			case 8 :
+				CustomerUseCases.CloseAccount(sc);
+				break;
+			case 9 :
+				CustomerUseCases.DeleteAccount(sc);
+				break;
+			case 10 :
+				CustomerUseCases.ViewBalance(sc);
 				break;
 			default :
 				System.out.println("Your Logged Out");

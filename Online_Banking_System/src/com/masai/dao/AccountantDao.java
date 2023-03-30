@@ -16,5 +16,7 @@ public interface AccountantDao {
 		public List<Account> viewAllAccounts() throws AccountantException;
 		
 		public Account viewAccountByAccountNumber(int acc_num) throws AccountantException;
+		
+		public String addAccount(Account account) throws AccountantException;
 	
 }

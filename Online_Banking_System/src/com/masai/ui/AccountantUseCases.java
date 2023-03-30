@@ -12,6 +12,8 @@ import com.masai.exception.AccountantException;
 
 public class AccountantUseCases {
 	
+	public static int acc_id;
+	
 	static void ViewAllCustomers() {
 		
 		AccountantDao dao = new AccountantDaoImpl();
@@ -74,6 +76,35 @@ public class AccountantUseCases {
 		} catch (AccountantException e) {
 			System.out.println(e.getMessage());
 		}
+		
+	}
+	
+	static void AddAccount(Scanner sc) {
+		
+		System.out.print("Enter Account Type : ");
+		String acc_type = sc.nextLine();
+		
+		System.out.print("Enter Account Balance : ");
+		int balance = Integer.parseInt(sc.nextLine());
+		
+		System.out.print("Enter Customer Id : ");
+		int cus_id = Integer.parseInt(sc.nextLine());
+		
+		Account acc = new Account();
+		acc.setAccount_type(acc_type);
+		acc.setBalance(balance);
+		acc.setCustomer_id(cus_id);
+		
+		AccountantDao dao = new AccountantDaoImpl();
+		try {
+			String msg = dao.addAccount(acc);
+			
+			System.out.println(msg);
+		
+		} catch (AccountantException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		
 	}
 	

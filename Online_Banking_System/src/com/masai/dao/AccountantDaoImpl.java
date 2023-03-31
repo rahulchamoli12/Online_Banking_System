@@ -1,15 +1,18 @@
 package com.masai.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.masai.dto.Account;
 import com.masai.dto.Customer;
 import com.masai.dto.CustomerAccount;
+import com.masai.dto.Transaction;
 import com.masai.exception.AccountantException;
 import com.masai.exception.CustomerException;
 import com.masai.ui.CustomerUI;
@@ -24,7 +27,7 @@ public class AccountantDaoImpl implements AccountantDao{
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM customer ");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM customer where is_deleted =0 ");
 						
 			ResultSet rs = ps.executeQuery();
 			
@@ -37,7 +40,7 @@ public class AccountantDaoImpl implements AccountantDao{
 				cus.setAddress(rs.getString(5));
 				cus.setUsername(rs.getString(6));
 				cus.setPassword(rs.getString(7));
-				cus.setIs_deleted(false);
+				cus.setIs_deleted(rs.getBoolean(8));
 				
 				customers.add(cus);
 				
@@ -94,19 +97,19 @@ public class AccountantDaoImpl implements AccountantDao{
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM account ");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM account where is_deleted =0");
 						
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
 				Account account = new Account();
-				account.setAccount_number(1);
+				account.setAccount_number(rs.getInt(1));
 				account.setAccount_type(rs.getString(2));
 				account.setBalance(rs.getInt(3));
 				account.setCustomer_id(rs.getInt(4));
 				account.setStatus(rs.getString(5));
-				account.setIs_close(false);
-				account.setIs_deleted(false);
+				account.setIs_close(rs.getBoolean(6));
+				account.setIs_deleted(rs.getBoolean(7));
 				
 				accounts.add(account);
 				
@@ -130,20 +133,20 @@ public class AccountantDaoImpl implements AccountantDao{
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM account where account_number = ?");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM account where account_number = ? AND  is_deleted =0");
 			ps.setInt(1, acc_num);
 						
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
 				account = new Account();
-				account.setAccount_number(1);
+				account.setAccount_number(rs.getInt(1));
 				account.setAccount_type(rs.getString(2));
 				account.setBalance(rs.getInt(3));
 				account.setCustomer_id(rs.getInt(4));
 				account.setStatus(rs.getString(5));
-				account.setIs_close(false);
-				account.setIs_deleted(false);
+				account.setIs_close(rs.getBoolean(6));
+				account.setIs_deleted(rs.getBoolean(7));
 			}
 			
 			else
@@ -183,6 +186,173 @@ public class AccountantDaoImpl implements AccountantDao{
 		}
 		
 		return message;
+	}
+
+	@Override
+	public String changeStatusToInoperative() throws AccountantException {
+		String message="No account found!";
+		
+		try(Connection conn= DBUtil.provideConnection()) {
+		 
+		 PreparedStatement ps=conn.prepareStatement("UPDATE account c JOIN transaction t ON c.account_number = t.account_number SET c.status = 'inoperative' WHERE (t.transaction_date < DATE_SUB(NOW(), INTERVAL 24 MONTH)) AND c.is_deleted =0");
+		 
+		int x=ps.executeUpdate();
+		 
+		 if(x > 0) {
+			 message = x + "accounts converted into inoperative account";
+		 }
+		 
+		}catch(SQLException e) {
+			throw new AccountantException(e.getMessage());
+		}
+		
+		return message;
+	}
+
+	@Override
+	public List<Account> viewInoperativeAccounts() throws AccountantException {
+		List<Account> accounts = new ArrayList<>();
+		
+		try (Connection con = DBUtil.provideConnection()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM account where status =  ? AND is_deleted =0");
+			ps.setString(1, "inoperative");
+						
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Account account = new Account();
+				account.setAccount_number(rs.getInt(1));
+				account.setAccount_type(rs.getString(2));
+				account.setBalance(rs.getInt(3));
+				account.setCustomer_id(rs.getInt(4));
+				account.setStatus(rs.getString(5));
+				account.setIs_close(rs.getBoolean(6));
+				account.setIs_deleted(rs.getBoolean(7));
+				
+				accounts.add(account);
+				
+			}
+			
+			if(accounts.size() == 0)
+				throw new AccountantException("No inoperative accounts available");
+					
+		} catch (SQLException e) {
+			throw new AccountantException(e.getMessage());
+		} 
+	
+		return accounts;
+	}
+
+	@Override
+	public List<Account> viewClosedAccounts() throws AccountantException {
+		List<Account> accounts = new ArrayList<>();
+		
+		try (Connection con = DBUtil.provideConnection()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM account where is_close =  ? AND is_deleted =0");
+			ps.setBoolean(1, true);
+						
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Account account = new Account();
+				account.setAccount_number(rs.getInt(1));
+				account.setAccount_type(rs.getString(2));
+				account.setBalance(rs.getInt(3));
+				account.setCustomer_id(rs.getInt(4));
+				account.setStatus(rs.getString(5));
+				account.setIs_close(rs.getBoolean(6));
+				account.setIs_deleted(rs.getBoolean(7));
+				
+				accounts.add(account);
+				
+			}
+			
+			if(accounts.size() == 0)
+				throw new AccountantException("No inoperative accounts available");
+					
+		} catch (SQLException e) {
+			throw new AccountantException(e.getMessage());
+		} 
+	
+		return accounts;
+	}
+	
+	
+	
+	@Override
+	public List<Transaction> transactionByDateRange(String startDate, String endDate) throws CustomerException {
+		
+		List<Transaction> list = new ArrayList<>();
+		
+			
+			try(Connection conn = DBUtil.provideConnection()) {
+				PreparedStatement ps=conn.prepareStatement("select * from transaction where transaction_date BETWEEN ? AND ? AND is_deleted =0");
+				
+				ps.setDate(1, Date.valueOf(startDate));
+				ps.setDate(2, Date.valueOf(endDate));
+				
+				ResultSet rs=ps.executeQuery();
+				
+				while(rs.next()) {
+					
+					Transaction tran = new Transaction();
+					tran.setAccount_number(rs.getInt(1));
+					tran.setDeposit(rs.getInt(2));
+					tran.setWithdraw(rs.getInt(3));
+					LocalDate d = LocalDate.parse(rs.getString(4));
+					tran.setTransaction_date(d);
+					tran.setIs_delete(rs.getBoolean(5));
+					
+					list.add(tran);
+					
+				}
+				if(list.size()==0)
+					throw new CustomerException("No Transaction Between " + startDate + " -- " + endDate);
+				
+			} catch (SQLException e) {
+				throw new CustomerException(e.getMessage());
+			}
+		
+		return list;
+	}
+	
+
+	@Override
+	public List<Transaction> transactionMoreThan49k() throws AccountantException {
+		List<Transaction> list = new ArrayList<>();
+		
+			try(Connection conn = DBUtil.provideConnection()) {
+				PreparedStatement ps=conn.prepareStatement("select * from transaction where deposit > ? OR withdraw > ? AND is_deleted =0");
+				
+				ps.setInt(1, 49999);
+				ps.setInt(2, 49999);
+				
+				ResultSet rs=ps.executeQuery();
+				
+				while(rs.next()) {
+					
+					Transaction tran = new Transaction();
+					tran.setAccount_number(rs.getInt(1));
+					tran.setDeposit(rs.getInt(2));
+					tran.setWithdraw(rs.getInt(3));
+					LocalDate d = LocalDate.parse(rs.getString(4));
+					tran.setTransaction_date(d);
+					tran.setIs_delete(rs.getBoolean(5));
+					
+					list.add(tran);
+					
+				}
+				if(list.size()==0)
+					throw new AccountantException("No transaction is more than 49999");
+				
+			} catch (SQLException e) {
+				throw new AccountantException(e.getMessage());
+			}
+	
+		
+		return list;
 	}
 	
 	

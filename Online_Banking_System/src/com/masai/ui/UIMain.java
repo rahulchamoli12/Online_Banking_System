@@ -2,18 +2,41 @@ package com.masai.ui;
 
 import java.util.Scanner;
 
+import com.masai.dao.CustomerDao;
+import com.masai.dao.CustomerDaoImpl;
+
 public class UIMain {
+	
+//	for getting account number of customer
+	public static int account_number;
+	
+	
 		
 	public static void main(String[] args) {
+		
+		
 		Scanner sc = new Scanner(System.in);
+		System.out.println("**********************************");
+		System.out.println("Welcome To Online Banking System");
+		System.out.println("**********************************");
 		int choice = 0;
-		do {
-			System.out.println("0. Exit");
+		boolean f = true;
+		while(f){
 			System.out.println("1. Login as a Accountant");
 			System.out.println("2. Signup as a Customer");
 			System.out.println("3. Login as a Customer");
+			System.out.println("0. Exit");
 			System.out.print("Enter Selection ");
-			choice = Integer.parseInt(sc.nextLine());
+			try {
+				choice = Integer.parseInt(sc.nextLine());
+			} catch (Exception e) {
+				System.out.println("Please enter correct option");
+				System.out.println("");
+				System.out.println("");
+				System.out.println("");
+				continue;
+			}
+			
 			
 			switch(choice) {
 				case 1:
@@ -28,19 +51,25 @@ public class UIMain {
 						System.out.println("Wrong Credentials ❌");
 					break;
 				case 2:
+					
 					CustomerUseCases.Signup(sc);
+					
 					break;
 				case 3:
+					
 				CustomerUseCases.Login(sc);
+				
 					break;
 				case 0:
 					System.out.println("Thank you for using this application");
+					f = false;
 					break;
 				default:
-					System.out.println("Invalid Selection please try again later");
+					System.out.println("Invalid Selection please try again ");
+					
 			}
 			
-		}while(choice != 0);
+		}
 		sc.close();
 	}
 	

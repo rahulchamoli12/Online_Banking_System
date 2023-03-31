@@ -8,9 +8,10 @@ public class AccountantUI {
 
 		int choice = 0;
 		System.out.println("Welcome Accountant");
+		boolean f = true;
 
-		do {
-			System.out.println("1. add customer account");
+		while (f) {
+			System.out.println("1. Logout");
 			System.out.println("2. View all customers");
 			System.out.println("3. View customer details by customer id");
 			System.out.println("4. View all accounts");
@@ -21,14 +22,22 @@ public class AccountantUI {
 			System.out.println("8. View all closed accounts");
 			System.out.println("9. View transaction report for a day range for all accounts.");
 			System.out.println("10. View all high magnitude transaction for a day i.e. more than 49999 is transferred");
-			System.out.println("0. Logout");
+			//System.out.println("0. Logout");
 			System.out.println("Enter the choice : ");
 
-			choice = Integer.parseInt(sc.nextLine());
+			try {
+				choice = Integer.parseInt(sc.nextLine());
+			} catch (Exception e) {
+				System.out.println("Please enter correct option");
+				System.out.println("");
+				System.out.println("");
+				System.out.println("");
+				continue;
+			}
 			switch (choice) {
 			case 1:
-				AccountantUseCases.AddAccount(sc);
-				System.out.println("==================");
+				System.out.println("Logged Out");
+				f = false;
 				break;
 
 			case 2:
@@ -49,12 +58,34 @@ public class AccountantUI {
 				AccountantUseCases.ViewAccountByAccountNumber(sc);
 				System.out.println("==================");
 				break;
+			case 6:
+				AccountantUseCases.ChangeStatusToInoperative();
+				System.out.println("==================");
+				break;
+			case 7:
+				AccountantUseCases.ViewInoperativeAccounts();
+				System.out.println("==================");
+				break;
+			case 8:
+				AccountantUseCases.viewClosedAccounts();
+				System.out.println("==================");
+				break;
+			case 9:
+				AccountantUseCases.TransactionByDateRange(sc);
+				System.out.println("==================");
+				break;
+			case 10:
+				AccountantUseCases.transactionMoreThan49k();
+				System.out.println("==================");
+				break;
+			
 			default:
-				System.out.println();
-			}
+				System.out.println("Enter Correct Input");
+				}
 
-		} while (choice != 0);
-		sc.close();
+		} 
+//		
+
 
 	}
 

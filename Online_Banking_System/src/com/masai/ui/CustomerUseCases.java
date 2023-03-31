@@ -55,7 +55,6 @@ public class CustomerUseCases {
 	}
 	 
 	 
-	 
 	 static void Login(Scanner sc) {
 		 	System.out.print("Enter Username : ");
 			String username = sc.nextLine();
@@ -68,6 +67,11 @@ public class CustomerUseCases {
 			try {
 				String message = dao.loginAsACustomer(username, password);
 				System.out.println(message);
+				try {
+					CustomerDaoImpl.account_number();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				CustomerUI.customerMenu(sc);
 			} catch (CustomerException e) {
 				System.out.println(e.getMessage());
@@ -175,17 +179,17 @@ public class CustomerUseCases {
 	 
 	 static void DepositMoney(Scanner sc) {
 		 
-		 	System.out.print("Enter Account Number : ");
-			int ac_num = Integer.parseInt(sc.nextLine());
-		 
+		 		 
 			System.out.print("Enter Deposit Amount : ");
 			int amt = Integer.parseInt(sc.nextLine());
 			
 			CustomerDao dao = new CustomerDaoImpl();
 			
 			try {
-				int amount = dao.depositMoney(ac_num, amt);
-				System.out.println("Amount of " + amount + " Successfully Deposited in Account : " + ac_num);
+				int amount = dao.depositMoney(UIMain.account_number, amt);
+				System.out.println("-----------------------------------------------------------------\r\n"
+						+ "|	Amount of " + amount + " Successfully Deposited in your Account : "  + "	|\r\n"
+						+"-----------------------------------------------------------------\r\n");
 			} catch (CustomerException e) {
 				System.out.println(e.getMessage());
 			}
@@ -194,13 +198,11 @@ public class CustomerUseCases {
 	 
 	 
 	 static void ViewBalance(Scanner sc) {
-		 System.out.print("Enter Account Number : ");
-		int ac_num = Integer.parseInt(sc.nextLine());
-		 
+				 
 		CustomerDao dao = new CustomerDaoImpl();
 			
 			try {
-				int amount = dao.viewBalance(ac_num);
+				int amount = dao.viewBalance(UIMain.account_number);
 				System.out.println("Your Current Balance is : " + amount);
 			} catch (CustomerException e) {
 				System.out.println(e.getMessage());
@@ -211,18 +213,18 @@ public class CustomerUseCases {
 	 
 	 static void WithdrawMoney(Scanner sc) {
 		 
-		 	System.out.print("Enter Account Number : ");
-			int ac_num = Integer.parseInt(sc.nextLine());
-		 
+		 		 
 			System.out.print("Enter Withdraw Amount : ");
 			int amt = Integer.parseInt(sc.nextLine());
 			
 			CustomerDao dao = new CustomerDaoImpl();
 			
 			try {
-				int amount = dao.withdrawMoney(amt,ac_num);
-				System.out.println("Amount of " + amount + " Successfully Withdrwaing from Account : " + ac_num);
-				System.out.println("Your Remaining Balance Is : " + dao.viewBalance(ac_num));
+				int amount = dao.withdrawMoney(amt,UIMain.account_number);
+				System.out.println("-----------------------------------------------------------------\r\n"
+						+ "|	Amount of " + amount + " Successfully Withdrwaing from your account : " + "	|\r\n"
+						+"-----------------------------------------------------------------\r\n" );
+				System.out.println("Your Remaining Balance Is : " + dao.viewBalance(UIMain.account_number));
 			} catch (CustomerException e) {
 				System.out.println(e.getMessage());
 			}
@@ -230,10 +232,7 @@ public class CustomerUseCases {
 	 }
 	 
 	 static void TransferToAnotherAccount(Scanner sc) {
-		 
-			System.out.print("Enter Your Account Number : ");
-			int ac_num1 = Integer.parseInt(sc.nextLine());
-		 
+		 		 
 			System.out.print("Enter Amount : ");
 			int amt = Integer.parseInt(sc.nextLine());
 			
@@ -243,9 +242,11 @@ public class CustomerUseCases {
 			CustomerDao dao = new CustomerDaoImpl();
 			
 			try {
-				String msg = dao.transferToAnotherAccount(ac_num1, amt, ac_num2);
+				String msg = dao.transferToAnotherAccount(UIMain.account_number, amt, ac_num2);
 				System.out.println(msg);
-				System.out.println("Your Remaining Balance Is : " + dao.viewBalance(ac_num1));
+				System.out.println("-----------------------------------------------------------------\r\n"
+						+ "|	Your Remaining Balance Is : " + dao.viewBalance(UIMain.account_number)  +  "	|\r\n"
+						+"-----------------------------------------------------------------\r\n");
 			} catch (CustomerException e) {
 				System.out.println(e.getMessage());
 			}
@@ -254,19 +255,17 @@ public class CustomerUseCases {
 	 
 	 static void TransactionByDateRange(Scanner sc) {
 		 
-		 	System.out.print("Enter Your Account Number : ");
-			int ac_num1 = Integer.parseInt(sc.nextLine());
-		 
-			System.out.print("Enter Start Date : ");
+		 	 
+			System.out.print("Enter Start Date (yyyy-mm-dd) : ");
 			String s_date = sc.nextLine();
 			
-			System.out.print("Enter End Date : ");
+			System.out.print("Enter End Date (yyyy-mm-dd) : ");
 			String e_date = sc.nextLine();
 			
 			CustomerDao dao = new CustomerDaoImpl();
 			
 			try {
-				List<Transaction> list = dao.transactionByDateRange(s_date, e_date, ac_num1);
+				List<Transaction> list = dao.transactionByDateRange(s_date, e_date, UIMain.account_number);
 				list.forEach(s -> System.out.println(s) );
 			} catch (CustomerException e) {
 				System.out.println(e.getMessage());
@@ -280,14 +279,22 @@ public class CustomerUseCases {
 		int ac_num1 = Integer.parseInt(sc.nextLine());
 		
 		CustomerDao dao = new CustomerDaoImpl();
+		if(ac_num1==UIMain.account_number) {
+			
 		
 		try {
+			
 			String msg = dao.closeAccount(ac_num1);
 			System.out.println(msg);
 			System.out.println("Thank you for using our application");
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
-		} 
+		}
+		
+		}else {
+			System.out.println("Wrong Account Number");
+			CloseAccount(sc);
+		}
 		 
 	 }
 	 
@@ -298,6 +305,8 @@ public class CustomerUseCases {
 		
 		CustomerDao dao = new CustomerDaoImpl();
 		
+		if(ac_num1==UIMain.account_number) {
+		
 		try {
 			String msg = dao.deleteAccount(ac_num1);
 			System.out.println(msg);
@@ -305,7 +314,12 @@ public class CustomerUseCases {
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
 		} 
-		 
+		}
+		else {
+			System.out.println("Wrong Account Number");
+			DeleteAccount(sc);
+		}
+		
 	 }
 	 
 	

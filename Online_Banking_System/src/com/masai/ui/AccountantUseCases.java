@@ -5,10 +5,14 @@ import java.util.Scanner;
 
 import com.masai.dao.AccountantDao;
 import com.masai.dao.AccountantDaoImpl;
+import com.masai.dao.CustomerDao;
+import com.masai.dao.CustomerDaoImpl;
 import com.masai.dto.Account;
 import com.masai.dto.Customer;
 import com.masai.dto.CustomerAccount;
+import com.masai.dto.Transaction;
 import com.masai.exception.AccountantException;
+import com.masai.exception.CustomerException;
 
 public class AccountantUseCases {
 	
@@ -108,7 +112,81 @@ public class AccountantUseCases {
 		
 	}
 	
+	static void ChangeStatusToInoperative() {
+		AccountantDao dao = new AccountantDaoImpl();
+		try {
+			String msg = dao.changeStatusToInoperative();
+			
+			System.out.println(msg);
+		
+		} catch (AccountantException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
 	
+	static void ViewInoperativeAccounts() {
+		
+		AccountantDao dao = new AccountantDaoImpl();
+		
+		try {
+			List<Account> accounts = dao.viewInoperativeAccounts();
+			
+			accounts.forEach(account -> System.out.println(account));
+		
+		} catch (AccountantException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	static void viewClosedAccounts() {
+		
+		AccountantDao dao = new AccountantDaoImpl();
+		
+		try {
+			List<Account> accounts = dao.viewClosedAccounts();
+			
+			accounts.forEach(account -> System.out.println(account));
+		
+		} catch (AccountantException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	
+	static void TransactionByDateRange(Scanner sc) {
+		  
+		System.out.print("Enter Start Date (yyyy-mm-dd) : ");
+		String s_date = sc.nextLine();
+		
+		System.out.print("Enter End Date (yyyy-mm-dd) : ");
+		String e_date = sc.nextLine();
+		
+		AccountantDao dao = new AccountantDaoImpl();
+		
+		try {
+			List<Transaction> list = dao.transactionByDateRange(s_date, e_date);
+			list.forEach(s -> System.out.println(s) );
+		} catch (CustomerException e) {
+			System.out.println(e.getMessage());
+		} 
+	}
+	
+	
+	
+	static void transactionMoreThan49k() {
+		
+		AccountantDao dao = new AccountantDaoImpl();
+		
+		try {
+			List<Transaction> accounts = dao.transactionMoreThan49k();
+			
+			accounts.forEach(tran -> System.out.println(tran));
+		
+		} catch (AccountantException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 	
 

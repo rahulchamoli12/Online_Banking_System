@@ -15,9 +15,30 @@ import com.masai.dto.Transaction;
 import com.masai.exception.CustomerException;
 import com.masai.ui.CustomerUI;
 import com.masai.ui.CustomerUseCases;
+import com.masai.ui.UIMain;
 import com.masai.util.DBUtil;
 
 public class CustomerDaoImpl implements CustomerDao{
+	
+	public static void account_number() {
+		try (Connection con = DBUtil.provideConnection()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT * from account where customer_id = ?");
+			
+			ps.setInt(1, CustomerUseCases.cid);
+			
+			ResultSet res = ps.executeQuery();
+			
+			if(res.next()) {
+				UIMain.account_number = res.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public String signUpAsACustomer(Customer customer) throws CustomerException{
@@ -66,10 +87,10 @@ public class CustomerDaoImpl implements CustomerDao{
 			if(rs.next()) {
 				CustomerUseCases.cid = rs.getInt("customer_id");
 				CustomerUI.cu_name = rs.getString("first_name");
-				message = "Login Successfully ✔";		
-			}
+					message = "Login Successfully ✔";
+				}
 			else 
-				throw new CustomerException("Please sign up first");
+				throw new CustomerException("Invalid Credentials!-----");
 					
 		} catch (SQLException e) {
 			throw new CustomerException(e.getMessage());
@@ -80,11 +101,13 @@ public class CustomerDaoImpl implements CustomerDao{
 
 	@Override
 	public String updateCustomerDetails(String f_name,String l_name, String mobile, String address,int id) throws CustomerException {
-		String message = "Not Updated";
+		String message = "-----------------------------------------------------------------\r\n"
+				+ "|						Not Updated 							|\r\n"
+				+"-----------------------------------------------------------------\r\n";	
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("UPDATE customer SET first_name=?,last_name=?,mobile=?,address=? WHERE customer_id=?");
+			PreparedStatement ps = con.prepareStatement("UPDATE customer SET first_name=?,last_name=?,mobile=?,address=? WHERE customer_id=? AND is_deleted =0");
 			ps.setString(1, f_name);
 			ps.setString(2, l_name);
 			ps.setString(3, mobile);
@@ -95,7 +118,9 @@ public class CustomerDaoImpl implements CustomerDao{
 			int row = ps.executeUpdate();
 			
 			if(row > 0) {
-				message = "Your Details Updated Successfully ✔";		
+				message = "-----------------------------------------------------------------\r\n"
+						+ "|			 Your Details Updated Successfully ✔ 			 |\r\n"
+						+"-----------------------------------------------------------------\r\n";		
 			}
 			
 					
@@ -109,11 +134,13 @@ public class CustomerDaoImpl implements CustomerDao{
 	@Override
 	public String updatePassword(String old_password, String new_password,int id) throws CustomerException {
 		
-		String message = "Password not updated";
+		String message = "-----------------------------------------------------------------\r\n"
+				+ "|				 Password not updated					 |\r\n"
+				+"-----------------------------------------------------------------\r\n";
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("UPDATE customer SET password=? WHERE customer_id=? AND password=?");
+			PreparedStatement ps = con.prepareStatement("UPDATE customer SET password=? WHERE customer_id=? AND password=? AND is_deleted =0");
 			ps.setString(1, new_password);
 			ps.setInt(2, id);
 			ps.setString(3, old_password);			
@@ -121,7 +148,9 @@ public class CustomerDaoImpl implements CustomerDao{
 			int row = ps.executeUpdate();
 			
 			if(row > 0) {
-				message = "Your Password Updated Successfully ✔";		
+				message = "-----------------------------------------------------------------\r\n"
+						+ "|           Your Password Updated Successfully ✔ 			|\r\n"
+						+"-----------------------------------------------------------------\r\n";		
 			}
 			else
 				throw new CustomerException("Insert Correct Old Password");
@@ -138,7 +167,9 @@ public class CustomerDaoImpl implements CustomerDao{
 	@Override
 	public String openSavingsAccount(Account account) throws CustomerException {
 		
-		String message = "Account not opened yet!";
+		String message = "-----------------------------------------------------------------\r\n"
+				+ "|            	    Account not opened yet!            	  |\r\n"
+				+"-----------------------------------------------------------------\r\n";	
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
@@ -151,7 +182,9 @@ public class CustomerDaoImpl implements CustomerDao{
 			int row = ps.executeUpdate();
 			
 			if(row > 0) {
-				message = "Your Saving Account Open Successfully ✔";		
+				message =  "-----------------------------------------------------------------\r\n"
+						+ "|          Your Saving Account Open Successfully ✔             |\r\n"
+						+"-----------------------------------------------------------------\r\n";			
 			}
 			else
 				throw new CustomerException("Insert Account details correctly");
@@ -168,7 +201,9 @@ public class CustomerDaoImpl implements CustomerDao{
 	@Override
 	public String openLoanAccount(Account account) throws CustomerException {
 		
-		String message = "Account not opened yet!";
+		String message = "-----------------------------------------------------------------\r\n"
+				+ "|         		 Account not opened yet!   		                |\r\n"
+				+"-----------------------------------------------------------------\r\n";	 
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
@@ -181,7 +216,9 @@ public class CustomerDaoImpl implements CustomerDao{
 			int row = ps.executeUpdate();
 			
 			if(row > 0) {
-				message = "Your Laon Account Open Successfully ✔";	
+				message  =  "-----------------------------------------------------------------\r\n"
+						+ "|          Your Laon Account Open Successfully ✔                |\r\n"
+						+"-----------------------------------------------------------------\r\n";	
 				
 			}
 			else
@@ -202,7 +239,7 @@ public class CustomerDaoImpl implements CustomerDao{
 		
 		try(Connection con = DBUtil.provideConnection()) {
 			
-			PreparedStatement ps= con.prepareStatement("Select balance from account where account_number = ?;" );			
+			PreparedStatement ps= con.prepareStatement("Select balance from account where account_number = ? AND is_deleted =0" );			
 				
 				ps.setInt(1, acc_num);
 				
@@ -230,7 +267,7 @@ public class CustomerDaoImpl implements CustomerDao{
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("update account set balance = balance + ? where account_number =?");
+			PreparedStatement ps = con.prepareStatement("update account set balance = balance + ? where account_number =? AND is_deleted =0");
 			ps.setInt(1, amt);
 			ps.setInt(2, acc_no);
 			
@@ -268,7 +305,7 @@ public class CustomerDaoImpl implements CustomerDao{
 		
 			try (Connection con = DBUtil.provideConnection()){
 				
-				PreparedStatement ps = con.prepareStatement("update account set balance = balance - ? where account_number =?");
+				PreparedStatement ps = con.prepareStatement("update account set balance = balance - ? where account_number =? AND is_deleted =0");
 				ps.setInt(1, amount);
 				ps.setInt(2, account_number);
 				
@@ -307,7 +344,10 @@ public class CustomerDaoImpl implements CustomerDao{
 	@Override
 	public String transferToAnotherAccount(int acc1, int amount, int acc2) throws CustomerException {
 		
-		String msg = "Enter Correct Account Number!";
+		String msg = "-----------------------------------------------------------------\r\n"
+				+ "|          Enter Correct Account Number!			                |\r\n"
+				+"-----------------------------------------------------------------\r\n";
+				
 		int blns = viewBalance(acc1);
 		
 		if(blns < amount) msg = "Insufficient Balance";
@@ -317,7 +357,10 @@ public class CustomerDaoImpl implements CustomerDao{
 			depositMoney(acc2, amount);
 			withdrawMoney(amount, acc1);
 			
-			msg = "Amount of " + amount + " successfully tranfered to Account Number " + acc2;
+			msg ="-----------------------------------------------------------------------------\r\n"
+					+ "|        Amount of \" + amount + \" successfully tranfered to Account Number \" + acc2		 |\r\n"
+					+"----------------------------------------------------------------------------\r\n";
+					
 			
 		}
 		return msg;
@@ -352,7 +395,7 @@ public class CustomerDaoImpl implements CustomerDao{
 		if(checkAccount(acc_num)) {
 			
 			try(Connection conn = DBUtil.provideConnection()) {
-				PreparedStatement ps=conn.prepareStatement("select * from transaction where account_number=? AND transaction_date BETWEEN ? AND ?");
+				PreparedStatement ps=conn.prepareStatement("select * from transaction where account_number=? AND transaction_date BETWEEN ? AND ? AND is_deleted =0");
 				
 				ps.setInt(1, acc_num);
 				ps.setDate(2, Date.valueOf(startDate));
@@ -368,7 +411,7 @@ public class CustomerDaoImpl implements CustomerDao{
 					tran.setWithdraw(rs.getInt(3));
 					LocalDate d = LocalDate.parse(rs.getString(4));
 					tran.setTransaction_date(d);
-					tran.setIs_delete(false);
+					tran.setIs_delete(rs.getBoolean(5));
 					
 					list.add(tran);
 					
@@ -394,7 +437,7 @@ public class CustomerDaoImpl implements CustomerDao{
 		if(checkAccount(acc_num)) {
 		
 			try(Connection conn = DBUtil.provideConnection()) {
-				PreparedStatement ps=conn.prepareStatement("update account set is_close = true where account_number=?;");
+				PreparedStatement ps=conn.prepareStatement("update account set is_close = true where account_number=? AND is_deleted =0");
 				
 				ps.setInt(1, acc_num);
 				
@@ -416,7 +459,9 @@ public class CustomerDaoImpl implements CustomerDao{
 
 	@Override
 	public String deleteAccount(int acc_num) throws CustomerException {
-		String msg = "Enter Correct Account Number!";
+		String msg = "-----------------------------------------------------------------\r\n"
+				+ "|          Enter Correct Account Number!			                |\r\n"
+				+"-----------------------------------------------------------------\r\n";
 		
 		if(checkAccount(acc_num)) {
 		
@@ -428,7 +473,11 @@ public class CustomerDaoImpl implements CustomerDao{
 				int row=ps.executeUpdate();
 				
 				if(row > 0) {
-					msg = "Your account is deleted successfully";
+					msg = "-----------------------------------------------------------------\r\n"
+							+ "|          Your account is deleted successfully			    |\r\n"
+							+"-----------------------------------------------------------------\r\n";
+							
+							
 				}
 				
 			} catch (SQLException e) {

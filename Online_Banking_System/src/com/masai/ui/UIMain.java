@@ -9,9 +9,7 @@ public class UIMain {
 	
 //	for getting account number of customer
 	public static int account_number;
-	
-	
-		
+
 	public static void main(String[] args) {
 		
 		

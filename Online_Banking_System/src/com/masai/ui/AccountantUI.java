@@ -11,19 +11,33 @@ public class AccountantUI {
 		boolean f = true;
 
 		while (f) {
-			System.out.println("1. Logout");
-			System.out.println("2. View all customers");
-			System.out.println("3. View customer details by customer id");
-			System.out.println("4. View all accounts");
-			System.out.println("5. View account details by account number");
-			System.out.println(
-					"6. Change the status of account from active to inoperative if no trsnaction for last 24 months");
-			System.out.println("7. View all inoperative accounts");
-			System.out.println("8. View all closed accounts");
-			System.out.println("9. View transaction report for a day range for all accounts.");
-			System.out.println("10. View all high magnitude transaction for a day i.e. more than 49999 is transferred");
-			//System.out.println("0. Logout");
-			System.out.println("Enter the choice : ");
+//			System.out.println("1. Logout");
+//			System.out.println("2. View all customers");
+//			System.out.println("3. View customer details by customer id");
+//			System.out.println("4. View all accounts");
+//			System.out.println("5. View account details by account number");
+//			System.out.println(
+//					"6. Change the status of account from active to inoperative if no trsnaction for last 24 months");
+//			System.out.println("7. View all inoperative accounts");
+//			System.out.println("8. View all closed accounts");
+//			System.out.println("9. View transaction report for a day range for all accounts.");
+//			System.out.println("10. View all high magnitude transaction for a day i.e. more than 49999 is transferred");
+//			//System.out.println("0. Logout");
+//			System.out.println("Enter the choice : ");
+			
+			System.out.println("-----------------------------------------------------------------\r\n"
+					+ "| 1. Logout \r\n"
+					+ "| 2. View all customers \r\n"
+					+ "| 3. View customer details by customer id \r\n"
+					+ "| 4. View all accounts \r\n"
+					+ "| 5. View account details by account number \r\n"
+					+ "| 6. Change the status of account from active to inoperative if no trsnaction for last 24 months \r\n"
+					+ "| 7. View all inoperative accounts \r\n"
+					+ "| 8. View all closed accounts \r\n"
+					+ "| 9. View transaction report for a day range for all accounts \r\n"
+					+ "| 10. View all high magnitude transaction for a day i.e. more than 49999 is transferred \r\n"
+					+  "-----------------------------------------------------------------\r\n"
+					+ "Please enter your choice:");
 
 			try {
 				choice = Integer.parseInt(sc.nextLine());

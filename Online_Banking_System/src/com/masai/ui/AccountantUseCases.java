@@ -146,7 +146,15 @@ public class AccountantUseCases {
 		try {
 			List<Account> accounts = dao.viewClosedAccounts();
 			
-			accounts.forEach(account -> System.out.println(account));
+			for(Account mes : accounts) {
+				System.out.println("---------------------------------------");
+				System.out.println("Account No: " + mes.getAccount_number());
+				System.out.println("Type: " + mes.getAccount_type());
+				System.out.println("Balance: " + mes.getBalance());
+				System.out.println("Email: " + mes.getCustomer_id());
+				System.out.println("Password: " + mes.getStatus());
+				System.out.println("---------------------------------------");
+			}
 		
 		} catch (AccountantException e) {
 			System.out.println(e.getMessage());
@@ -166,7 +174,14 @@ public class AccountantUseCases {
 		
 		try {
 			List<Transaction> list = dao.transactionByDateRange(s_date, e_date);
-			list.forEach(s -> System.out.println(s) );
+			for(Transaction mes : list) {
+				System.out.println("----------------------------------");
+				System.out.println("Account No: " + mes.getAccount_number());
+				System.out.println("Deposit: " + mes.getDeposit());
+				System.out.println("Withdraw: " + mes.getWithdraw());
+				System.out.println("Date: " + mes.getTransaction_date());
+				System.out.println("-----------------------------------");
+			}
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
 		} 
@@ -181,7 +196,14 @@ public class AccountantUseCases {
 		try {
 			List<Transaction> accounts = dao.transactionMoreThan49k();
 			
-			accounts.forEach(tran -> System.out.println(tran));
+			for(Transaction mes : accounts) {
+				System.out.println("******************************");
+				System.out.println("Account No: " + mes.getAccount_number());
+				System.out.println("Deposit: " + mes.getDeposit());
+				System.out.println("Withdraw: " + mes.getWithdraw());
+				System.out.println("Date: " + mes.getTransaction_date());
+				System.out.println("******************************");
+			}
 		
 		} catch (AccountantException e) {
 			System.out.println(e.getMessage());

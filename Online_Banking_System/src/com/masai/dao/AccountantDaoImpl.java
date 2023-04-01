@@ -63,8 +63,9 @@ public class AccountantDaoImpl implements AccountantDao{
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("SELECT c.customer_id,c.first_name,c.last_name,c.mobile,c.address,a.account_number,a.account_type,a.balance,a.status from customer c INNER JOIN account a ON c.customer_id = a.customer_id");
-						
+			PreparedStatement ps = con.prepareStatement("SELECT c.customer_id,c.first_name,c.last_name,c.mobile,c.address,a.account_number,a.account_type,a.balance,a.status from customer c INNER JOIN account a ON c.customer_id = a.customer_id where c.customer_id=?");
+			ps.setInt(1, cid);	
+			
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {

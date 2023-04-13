@@ -28,7 +28,9 @@ public class AccountantUseCases {
 			list.forEach(customer -> System.out.println(customer));
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 		
 	}
@@ -47,7 +49,9 @@ public class AccountantUseCases {
 			 System.out.println(ca);
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 	}
 	
@@ -64,7 +68,9 @@ public class AccountantUseCases {
 			 System.out.println(ca);
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 	}
 	
@@ -78,7 +84,9 @@ public class AccountantUseCases {
 			accounts.forEach(account -> System.out.println(account));
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 		
 	}
@@ -106,7 +114,9 @@ public class AccountantUseCases {
 			System.out.println(msg);
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 		
 		
@@ -120,7 +130,9 @@ public class AccountantUseCases {
 			System.out.println(msg);
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 		
 	}
@@ -135,7 +147,9 @@ public class AccountantUseCases {
 			accounts.forEach(account -> System.out.println(account));
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 	}
 	
@@ -157,7 +171,9 @@ public class AccountantUseCases {
 			}
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 	}
 	
@@ -183,7 +199,9 @@ public class AccountantUseCases {
 				System.out.println("-----------------------------------");
 			}
 		} catch (CustomerException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		} 
 	}
 	
@@ -206,7 +224,9 @@ public class AccountantUseCases {
 			}
 		
 		} catch (AccountantException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 	}
 	

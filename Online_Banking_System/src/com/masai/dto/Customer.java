@@ -95,8 +95,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "customer_id=" + customer_id + ", first_name=" + first_name + ", last_name=" + last_name
-				+ ", mobile=" + mobile + ", address=" + address + ", username=" + username + ", password=" + password
-				+ ", is_deleted=" + is_deleted ;
+				+ ", mobile=" + mobile + ", address=" + address + ", username=" + username  ;
 	}
 
 	

@@ -73,7 +73,7 @@ public class CustomerDaoImpl implements CustomerDao{
 	@Override
 	public String loginAsACustomer(String username, String password)throws CustomerException {
 
-		String message = "Invalid Credentials!";
+		String message = UIMain.RED_BOLD+"Invalid Credentials!"+UIMain.RESET;
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
@@ -87,10 +87,10 @@ public class CustomerDaoImpl implements CustomerDao{
 			if(rs.next()) {
 				CustomerUseCases.cid = rs.getInt("customer_id");
 				CustomerUI.cu_name = rs.getString("first_name");
-					message = "Login Successfully ✔";
+					message = UIMain.GREEN_BOLD+"Login Successfully ✔"+UIMain.RESET;
 				}
 			else 
-				throw new CustomerException("Invalid Credentials!-----");
+				throw new CustomerException("Invalid Credentials!");
 					
 		} catch (SQLException e) {
 			throw new CustomerException(e.getMessage());
@@ -153,7 +153,7 @@ public class CustomerDaoImpl implements CustomerDao{
 						+"-----------------------------------------------------------------\r\n";		
 			}
 			else
-				throw new CustomerException("Insert Correct Old Password");
+				throw new CustomerException(UIMain.RED_BOLD+"Insert Correct Old Password"+UIMain.RESET);
 			
 					
 		} catch (SQLException e) {
@@ -183,11 +183,11 @@ public class CustomerDaoImpl implements CustomerDao{
 			
 			if(row > 0) {
 				message =  "-----------------------------------------------------------------\r\n"
-						+ "|          Your Saving Account Open Successfully ✔             |\r\n"
+						+UIMain.GREEN_BOLD+ "|          Your Saving Account Open Successfully ✔             |\r\n"+UIMain.RESET
 						+"-----------------------------------------------------------------\r\n";			
 			}
 			else
-				throw new CustomerException("Insert Account details correctly");
+				throw new CustomerException(UIMain.RED_BOLD+"Insert Account details correctly"+UIMain.RESET);
 			
 					
 		} catch (SQLException e) {
@@ -217,7 +217,7 @@ public class CustomerDaoImpl implements CustomerDao{
 			
 			if(row > 0) {
 				message  =  "-----------------------------------------------------------------\r\n"
-						+ "|          Your Laon Account Open Successfully ✔                |\r\n"
+						+ UIMain.GREEN_BOLD+ "|          Your Laon Account Open Successfully ✔                |\r\n"+UIMain.RESET
 						+"-----------------------------------------------------------------\r\n";	
 				
 			}
@@ -334,7 +334,7 @@ public class CustomerDaoImpl implements CustomerDao{
 			
 		}
 		else {
-			throw new CustomerException("Insufficient Balance");
+			throw new CustomerException(UIMain.RED_BOLD+ "Insufficient Balance"+UIMain.RESET);
 		}
 		
 		
@@ -358,7 +358,7 @@ public class CustomerDaoImpl implements CustomerDao{
 			withdrawMoney(amount, acc1);
 			
 			msg ="-----------------------------------------------------------------------------\r\n"
-					+ "|        Amount of \" + amount + \" successfully tranfered to Account Number \" + acc2		 |\r\n"
+					+ UIMain.GREEN_BOLD+ "|        Amount of \" + amount + \" successfully tranfered to Account Number \" + acc2		 |\r\n"+UIMain.RESET
 					+"----------------------------------------------------------------------------\r\n";
 					
 			
@@ -474,7 +474,7 @@ public class CustomerDaoImpl implements CustomerDao{
 				
 				if(row > 0) {
 					msg = "-----------------------------------------------------------------\r\n"
-							+ "|          Your account is deleted successfully			    |\r\n"
+							+ UIMain.GREEN_BOLD+ "|          Your account is deleted successfully			    |\r\n"+UIMain.RESET
 							+"-----------------------------------------------------------------\r\n";
 							
 							

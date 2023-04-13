@@ -10,21 +10,25 @@ public class CustomerUI {
 	
 		
 	static void customerMenu(Scanner sc) {
-			
-		System.out.println("Welcome " + cu_name);
+		
+		System.out.println("");	
+		System.out.println("〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰");
+		System.out.println(UIMain.BLUE_BOLD+"    Welcome " + cu_name +    "!"+UIMain.RESET);
+		System.out.println("〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰");
+		System.out.println("");
 		int choice = 0;
 		boolean f = true;;
 		if(UIMain.account_number == 0) {
 			System.out.println("Create your account");
 			System.out.println("1. Open Saving Account");
 			System.out.println("2. Open Loan Account");
+			System.out.println("");
 			int ch = 0;
 			try {
 				 ch = Integer.parseInt(sc.nextLine());
 			} catch (Exception e) {
-				System.out.println("Please enter correct option");
 				System.out.println("");
-				System.out.println("");
+				System.out.println(UIMain.RED_BOLD+"Please enter correct option"+UIMain.RESET);
 				System.out.println("");
 				
 			}
@@ -36,7 +40,9 @@ public class CustomerUI {
 				CustomerUseCases.OpenLoanAccount(sc);
 				break;
 			default :
-				System.out.println("Enter Valid Option !");
+				System.out.println("");
+				System.out.println(UIMain.RED_BOLD+"Enter Valid Option !"+UIMain.RESET);
+				System.out.println("");
 				break;
 			}
 			try {
@@ -46,9 +52,9 @@ public class CustomerUI {
 			}
 		}
 		else {
-			System.out.println("-----------------------------------------------------------------\r\n"
+			System.out.println(UIMain.GREEN_BOLD+"-----------------------------------------------------------------\r\n"
 					+ "|		Your Account Number : \" + "+UIMain.account_number+" 		|\r\n"
-					+"-----------------------------------------------------------------\r\n");
+					+"-----------------------------------------------------------------\r\n"+UIMain.RESET);
 		
 		}
 		
@@ -88,10 +94,10 @@ public class CustomerUI {
 			try {
 				choice = Integer.parseInt(sc.nextLine());
 			} catch (Exception e) {
+				
 				System.out.println("Please enter correct option");
 				System.out.println("");
-				System.out.println("");
-				System.out.println("");
+				
 				continue;
 			}
 			switch(choice) {
@@ -102,9 +108,7 @@ public class CustomerUI {
 				try {
 					 ch = Integer.parseInt(sc.nextLine());
 				} catch (Exception e) {
-					System.out.println("Please enter correct option");
-					System.out.println("");
-					System.out.println("");
+					System.out.println(UIMain.RED_BOLD+"Please enter correct option"+UIMain.RESET);
 					System.out.println("");
 					continue;
 				}
@@ -116,7 +120,8 @@ public class CustomerUI {
 					CustomerUseCases.OpenLoanAccount(sc);
 					break;
 				default :
-					System.out.println("Enter Valid Option !");
+					System.out.println(UIMain.RED_BOLD+"Enter Valid Option !"+UIMain.RESET);
+					System.out.println("");
 					break;
 				}
 				try {
@@ -129,40 +134,51 @@ public class CustomerUI {
 
 			case 2 :
 				CustomerUseCases.UpdateCustomerDetails(sc);
+				System.out.println("");
 				break;
 			case 3 :
 				CustomerUseCases.UpdatePassword(sc);
+				System.out.println("");
 				break;
 			case 4 :
 				CustomerUseCases.DepositMoney(sc);
+				System.out.println("");
 				break;
 			case 5 :
 				CustomerUseCases.WithdrawMoney(sc);
+				System.out.println("");
 				break;
 			case 6 :
 				CustomerUseCases.TransactionByDateRange(sc);
+				System.out.println("");
 				break;
 			case 7 :
 				CustomerUseCases.TransferToAnotherAccount(sc);
+				System.out.println("");
 				break;
 			case 8 :
 				CustomerUseCases.CloseAccount(sc);
+				System.out.println("");
 				f = false;
 				break;
 			case 9 :
 				CustomerUseCases.DeleteAccount(sc);
+				System.out.println("");
 				f = false;
 				break;
 			case 10 :
 				CustomerUseCases.ViewBalance(sc);
 				break;
 			case 0 :
+				System.out.println("");
 				System.out.println("Your Logged Out");
+				System.out.println("");
 				f = false;
 				UIMain.account_number = 0;
 				break;
 			default :
-				System.out.println("Enter Correct Input");
+				System.out.println(UIMain.RED_BOLD+"Enter Correct Input"+UIMain.RESET);
+				System.out.println("");
 			}	
 		}
 		

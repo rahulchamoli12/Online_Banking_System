@@ -7,7 +7,11 @@ public class AccountantUI {
 	static void adminMenu(Scanner sc) {
 
 		int choice = 0;
-		System.out.println("Welcome Accountant");
+		System.out.println("");
+		System.out.println("〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰");
+		System.out.println(UIMain.BLUE_BOLD+"!      Welcome Accountant       !"+UIMain.RESET);
+		System.out.println("〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰");
+		System.out.println("");
 		boolean f = true;
 
 		while (f) {
@@ -44,8 +48,6 @@ public class AccountantUI {
 			} catch (Exception e) {
 				System.out.println("Please enter correct option");
 				System.out.println("");
-				System.out.println("");
-				System.out.println("");
 				continue;
 			}
 			switch (choice) {
@@ -56,45 +58,46 @@ public class AccountantUI {
 
 			case 2:
 				AccountantUseCases.ViewAllCustomers();
-				System.out.println("==================/r/n");
+				System.out.println("");
 				break;
 
 			case 3:
 				AccountantUseCases.ViewByCustomerID(sc);
-				System.out.println("==================");
+				System.out.println("");
 				break;
 
 			case 4:
 				AccountantUseCases.ViewAllAccounts();
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			case 5:
 				AccountantUseCases.ViewAccountByAccountNumber(sc);
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			case 6:
 				AccountantUseCases.ChangeStatusToInoperative();
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			case 7:
 				AccountantUseCases.ViewInoperativeAccounts();
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			case 8:
 				AccountantUseCases.viewClosedAccounts();
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			case 9:
 				AccountantUseCases.TransactionByDateRange(sc);
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			case 10:
 				AccountantUseCases.transactionMoreThan49k();
-				System.out.println("==================");
+				System.out.println("");
 				break;
 			
 			default:
 				System.out.println("Enter Correct Input");
+				System.out.println("");
 				}
 
 		} 

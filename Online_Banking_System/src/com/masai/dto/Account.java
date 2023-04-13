@@ -102,8 +102,7 @@ public class Account {
 	@Override
 	public String toString() {
 		return "account_number=" + account_number + ", account_type=" + account_type + ", balance=" + balance
-				+ ", customer_id=" + customer_id + ", status=" + status + ", is_close=" + is_close + ", is_deleted="
-				+ is_deleted ;
+				+ ", customer_id=" + customer_id + ", status=" + status + ", is_close=" + is_close  ;
 	}
 	
 	

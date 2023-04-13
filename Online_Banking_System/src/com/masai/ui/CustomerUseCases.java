@@ -47,7 +47,9 @@ public class CustomerUseCases {
 		 
 		try {
 			String message = dao.signUpAsACustomer(customer);
+			System.out.println("");
 			System.out.println(message);
+			System.out.println("");
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
 		}
@@ -66,7 +68,9 @@ public class CustomerUseCases {
 			
 			try {
 				String message = dao.loginAsACustomer(username, password);
+				System.out.println("");
 				System.out.println(message);
+				System.out.println("");
 				try {
 					CustomerDaoImpl.account_number();
 				} catch (Exception e) {
@@ -74,7 +78,9 @@ public class CustomerUseCases {
 				}
 				CustomerUI.customerMenu(sc);
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 			
 	 }
@@ -102,10 +108,14 @@ public class CustomerUseCases {
 			CustomerDao dao = new CustomerDaoImpl();
 			try {
 				String message = dao.updateCustomerDetails(f_name,l_name, mobile, address,CustomerUseCases.cid);
+				System.out.println("");
 				System.out.println(message);
+				System.out.println("");
 				CustomerUI.customerMenu(sc);
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 		 
 	 }
@@ -124,10 +134,14 @@ public class CustomerUseCases {
 		
 		try {
 			String message = dao.updatePassword(old_password,new_password,CustomerUseCases.cid);
+			System.out.println("");
 			System.out.println(message);
+			System.out.println("");
 			CustomerUI.customerMenu(sc);
 		} catch (CustomerException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 		
 	}
@@ -148,9 +162,13 @@ public class CustomerUseCases {
 		 
 			try {
 				String message = dao.openSavingsAccount(account);
+				System.out.println("");
 				System.out.println(message);
+				System.out.println("");
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 		 
 	 }
@@ -170,9 +188,13 @@ public class CustomerUseCases {
 		 
 			try {
 				String message = dao.openLoanAccount(account);
+				System.out.println("");
 				System.out.println(message);
+				System.out.println("");
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 		 
 	 }
@@ -191,7 +213,9 @@ public class CustomerUseCases {
 						+ "|	Amount of " + amount + " Successfully Deposited in your Account : "  + "	|\r\n"
 						+"-----------------------------------------------------------------\r\n");
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 			
 	 }
@@ -205,7 +229,9 @@ public class CustomerUseCases {
 				int amount = dao.viewBalance(UIMain.account_number);
 				System.out.println("Your Current Balance is : " + amount);
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 		 
 	 }
@@ -226,7 +252,9 @@ public class CustomerUseCases {
 						+"-----------------------------------------------------------------\r\n" );
 				System.out.println("Your Remaining Balance Is : " + dao.viewBalance(UIMain.account_number));
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 			
 	 }
@@ -248,7 +276,9 @@ public class CustomerUseCases {
 						+ "|	Your Remaining Balance Is : " + dao.viewBalance(UIMain.account_number)  +  "	|\r\n"
 						+"-----------------------------------------------------------------\r\n");
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			}
 		 
 	 }
@@ -268,7 +298,9 @@ public class CustomerUseCases {
 				List<Transaction> list = dao.transactionByDateRange(s_date, e_date, UIMain.account_number);
 				list.forEach(s -> System.out.println(s) );
 			} catch (CustomerException e) {
+				System.out.println("");
 				System.out.println(e.getMessage());
+				System.out.println("");
 			} 
 	 }
 	 
@@ -288,7 +320,9 @@ public class CustomerUseCases {
 			System.out.println(msg);
 			System.out.println("Thank you for using our application");
 		} catch (CustomerException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		}
 		
 		}else {
@@ -312,7 +346,9 @@ public class CustomerUseCases {
 			System.out.println(msg);
 			System.out.println("Thank you for using our application");
 		} catch (CustomerException e) {
+			System.out.println("");
 			System.out.println(e.getMessage());
+			System.out.println("");
 		} 
 		}
 		else {

@@ -16,6 +16,7 @@ import com.masai.dto.Transaction;
 import com.masai.exception.AccountantException;
 import com.masai.exception.CustomerException;
 import com.masai.ui.CustomerUI;
+import com.masai.ui.UIMain;
 import com.masai.util.DBUtil;
 
 public class AccountantDaoImpl implements AccountantDao{
@@ -200,7 +201,7 @@ public class AccountantDaoImpl implements AccountantDao{
 		int x=ps.executeUpdate();
 		 
 		 if(x > 0) {
-			 message = x + "accounts converted into inoperative account";
+			 message =   x + "accounts converted into inoperative account";
 		 }
 		 
 		}catch(SQLException e) {

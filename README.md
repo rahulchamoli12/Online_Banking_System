@@ -32,4 +32,5 @@ MYSql
 - Customer can delete the account
 - Customer close delete the account
 
-[ER Diagram ](https://user-images.githubusercontent.com/79252872/229429567-cea80b79-1614-4cbe-95ba-796c65718976.png)
+
+![ER Diagram ](https://user-images.githubusercontent.com/79252872/232246019-8e389af1-bbd5-4227-9ef2-5160c5c15d9b.png)

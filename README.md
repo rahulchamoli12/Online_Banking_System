@@ -2,17 +2,24 @@
 
 Online banking system is a console based application which allow you to do all kind of banking operations. JDBC has been used to develop this system which includes JDBC Driver, Connections, DAO implementations and exception handling. 
 
+# TECH STACK
+- JAVA - JDBC
+- MySQL
+
 ## Users
 - Accountant
 - Customer
 
+Setup for Running the Project
+Open project ONLINE BANKING SYSTEM.
+Create Database,tables into local system from SQL_TABLES.txt.
+Download .jar file according to your MySQL version from https://mvnrepository.com/artifact/mysql/mysql-connector-java.
+Run java file 'Main.java'.
+
+
 ## Database 
 MYSql
 
-# TECH STACK
-
-- JAVA - JDBC
-- MySQL
 
 ## Accountant Features
 

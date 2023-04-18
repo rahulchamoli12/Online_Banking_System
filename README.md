@@ -17,7 +17,7 @@ Online banking system is a console based application which allow you to do all k
 
 
 ## Database 
-MYSql
+- MYSql
 
 
 ## Accountant Features

@@ -1,6 +1,6 @@
 # ONLINE BANKING SYSTEM 
 
-Online banking system is a console based application which allow you to fo all kind of banking operations. JDBC has been used to develop this system which includes JDBC Driver, Connections, DAO implementations and exception handling. 
+Online banking system is a console based application which allow you to do all kind of banking operations. JDBC has been used to develop this system which includes JDBC Driver, Connections, DAO implementations and exception handling. 
 
 ## Users
 - Accountant

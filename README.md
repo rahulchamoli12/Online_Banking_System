@@ -41,5 +41,6 @@ This is a console based application which gives access to do all kind of banking
 ## ER Diagram
 
 
+![Banking System](https://user-images.githubusercontent.com/79252872/236632862-59f1db78-a22e-4631-999c-cb65a26bf56e.png)
 
-![ER Diagram ](https://user-images.githubusercontent.com/79252872/232246019-8e389af1-bbd5-4227-9ef2-5160c5c15d9b.png)
+

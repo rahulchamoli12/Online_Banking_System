@@ -47,7 +47,7 @@ This is a console based application which gives access to do all kind of banking
 Your valuable feedback is greatly appreciated. You can reach out to me via below medium
 
 ## Portfolio
-  - https://rahulchamoli12.github.io/
+  - - 👨‍💻 All of my projects are available at **[Portfolio](https://rahulchamoli12.github.io/)**
   
 ## Linkedin
 - https://www.linkedin.com/in/rahul-chamoli-2b1299167/
